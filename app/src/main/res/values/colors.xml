@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f94453</color>
+    <color name="colorPrimaryVariant">#f94453</color>
+
+    <color name="colorSecondary">#242424</color>
+    <color name="colorSecondaryVariant">#242424</color>
+
+    <color name="colorBlack">#FF000000</color>
+    <color name="colorWhite">#F6F6F6</color>
+
+    <color name="colorStatusOnline">#3ABF7E</color>
+    <color name="colorStatusAway">#F39F00</color>
+    <color name="colorStatusBusy">#F84848</color>
+    <color name="colorStatusStreaming">#977EFF</color>
+    <color name="colorStatusInvisible">#A5A5A5</color>
+
+    <color name="colorSuccess">#65E572</color>
+    <color name="colorWarning">#FAA352</color>
+    <color name="colorError">#ED4245</color>
+
+    <color name="colorMention">#0FFBFF00</color>
+</resources>
