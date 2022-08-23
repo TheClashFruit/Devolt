@@ -2,6 +2,7 @@ package xyz.theclashfruit.devolt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,8 +31,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     private Button loginButton;
-    private TextInputLayout textEmail;
-    private TextInputLayout textPassword;
+    private Button registerButton;
 
     private RequestQueue requestQueue;
 
@@ -40,55 +40,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestQueue = Volley.newRequestQueue(MainActivity.this);
-
-        HCaptchaConfig config = HCaptchaConfig.builder()
-                .siteKey("3daae85e-09ab-4ff6-9f24-e8f4f335e433")
-                .locale("en")
-                .size(HCaptchaSize.NORMAL)
-                .loading(true)
-                .resetOnTimeout(true)
-                .theme(HCaptchaTheme.DARK)
-                .build();
-
-
         loginButton = findViewById(R.id.loginButton);
-        textEmail = findViewById(R.id.textEmail);
-        textPassword = findViewById(R.id.textPassword);
 
         loginButton.setOnClickListener(view -> {
-            HCaptcha.getClient(MainActivity.this).verifyWithHCaptcha(config)
-                    .addOnSuccessListener(response -> {
-                        String userResponseToken = response.getTokenResult();
+            Intent i1 = new Intent();
+            i1.setClass(this, ChatActivity.class);
 
-                        JSONObject jsonBody = null;
-
-                        try {
-                            jsonBody = new JSONObject("{\"email\":\"".concat(textEmail.getEditText().getText().toString()).concat("\",\"password\":\"").concat(textPassword.getEditText().getText().toString()).concat("\",\"friendly_name\":\"Devolt v1 - Revite Native Android Client\",\"captcha\":\"").concat(userResponseToken).concat("\"}"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "https://api.revolt.chat/auth/session/login", jsonBody,
-                                reqResponse -> Log.d("MainActivity", "Response: " + reqResponse),
-                                error -> Log.e("MainActivity", "Error: " + error.toString()));
-
-                        stringRequest.setTag("rq");
-                        requestQueue.add(stringRequest);
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e("MainActivity", "Error code: " + e.getStatusCode());
-                        Log.e("MainActivity", "Error msg: " + e.getMessage());
-                    });
+            startActivity(i1);
+            finish();
         });
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (requestQueue != null) {
-            requestQueue.cancelAll("rq");
-        }
     }
 }
